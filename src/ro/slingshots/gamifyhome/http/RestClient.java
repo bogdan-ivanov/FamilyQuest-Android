@@ -22,7 +22,8 @@ import android.util.Log;
 
 public class RestClient {
 private static final String TAG = "RestClient";
-	public static final String URL_BASE = "http://172.28.101.30:8080";
+	//public static final String URL_BASE = "http://172.28.101.30:8080";
+	public static final String URL_BASE = "http://192.168.1.3:8080";
 	public static final String PATH_OPEN_CHORES = "/api/v1/family/1/?format=json";
 	public static final String PATH_CLOSE_CHORE = "/photo_upload/";
 	private HttpApi mHttpApi;
@@ -34,7 +35,7 @@ private static final String TAG = "RestClient";
 		return URL_BASE+path;
 	}
 	public String getOpenChores() throws HttpApiException, IOException{
-		return execute(getUrl(PATH_OPEN_CHORES),new HttpGet());
+		return execute(getUrl(PATH_OPEN_CHORES));
 	}
 	public String getEncodedImage(String imagePath){
 		Bitmap bitmap = BitmapFactory.decodeFile(imagePath);
@@ -46,38 +47,36 @@ private static final String TAG = "RestClient";
 		return encodedImage;
 	}
 	public String uploadClosedChore(String imagePath,String json) throws HttpApiException, IOException{
-		HttpPost post = new HttpPost();
+		String url = getUrl(PATH_CLOSE_CHORE);
+		HttpPost post = new HttpPost(url);
 		
-        return execute(getUrl(PATH_CLOSE_CHORE),post,imagePath,json);
+        return execute(post,imagePath,json);
 	}
-	public String execute(String url,HttpGet get) throws HttpApiException, IOException{
+	public String execute(String url) throws HttpApiException, IOException{
 		Log.i(TAG,"GET "+url);
-		get = new HttpGet(url);
+		HttpGet get = new HttpGet(url);
 		
 		get.setHeader("Content-Type", "application/json");
 		return mHttpApi.executeHttpRequest(get);
 	}
-	public String execute(String url,HttpPost post,String imagePath,String jsonRequest) throws HttpApiException, IOException{
-		Log.i(TAG,"POST "+url);
+	public String execute(HttpPost post,String imagePath,String jsonRequest) throws HttpApiException, IOException{
 		Log.i(TAG,"BODY "+jsonRequest);
 		Log.i(TAG,"imagePath "+imagePath);
+		
 		String encodedImage = getEncodedImage(imagePath);
 		Log.i(TAG,"encodedSize "+encodedImage.length());
 		if(encodedImage!=null){
 			 ArrayList<NameValuePair> nameValuePairs = new ArrayList<NameValuePair>();
 			 nameValuePairs.add(new BasicNameValuePair("image",encodedImage));
 			 post.setEntity(new UrlEncodedFormEntity(nameValuePairs));
-			
 		}
 		post.setHeader("Content-Type", "application/octet-stream");
 		
 		return mHttpApi.executeHttpRequest(post);
 	}
 	
-	public String execute(String url,HttpPost post,String jsonRequest) throws HttpApiException, IOException{
-		Log.i(TAG,"POST "+url);
+	public String execute(HttpPost post,String jsonRequest) throws HttpApiException, IOException{
 		Log.i(TAG,"BODY "+jsonRequest);
-		post = new HttpPost(url);
 		if(jsonRequest!=null)
 			post.setEntity(new ByteArrayEntity(jsonRequest.getBytes("UTF8")));
 		post.setHeader("Content-Type", "application/json");

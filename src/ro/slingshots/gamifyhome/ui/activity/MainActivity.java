@@ -3,6 +3,8 @@ package ro.slingshots.gamifyhome.ui.activity;
 
 
 
+import java.util.List;
+
 import ro.slingshots.gamifyhome.R;
 import ro.slingshots.gamifyhome.R.layout;
 import ro.slingshots.gamifyhome.R.menu;
@@ -13,9 +15,11 @@ import ro.slingshots.gamifyhome.http.response.ResponseOpenChores;
 import ro.slingshots.gamifyhome.ui.IOnFinish;
 import ro.slingshots.gamifyhome.ui.fragment.BaseListFragment;
 import ro.slingshots.gamifyhome.ui.fragment.ChoreListFragment;
-import ro.slingshots.gamifyhome.ui.fragment.RewardListFragment;
+import ro.slingshots.gamifyhome.ui.fragment.ApproveListFragment;
 import ro.slingshots.gamifyhome.ui.fragment.SnapShotFragment;
 import android.os.Bundle;
+import android.os.Handler;
+import android.os.Message;
 import android.app.Activity;
 import android.support.v4.app.Fragment;
 import android.support.v4.app.FragmentActivity;
@@ -30,12 +34,15 @@ import android.view.Menu;
 import android.view.MenuItem;
 import android.view.View;
 import android.view.View.OnClickListener;
+import android.widget.TextView;
 
 public class MainActivity extends FragmentActivity implements ViewPager.OnPageChangeListener{
 	public static final String TAG ="MainActivity";
 	FragmentPageAdapter mFragmentAdapter;
 	android.support.v4.view.ViewPager mViewPager;
 	Fragment mActiveFragment;
+	TextView mBadge;
+	boolean mPollingEnabled = false;
 	IOnFinish<Integer> onChoreClick = new IOnFinish<Integer>() {
 
 		@Override
@@ -53,7 +60,63 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 		}
 	
 	};
+
+	//Dirty implementation of notification: busy waiting
+	Handler handlerRefreshBadge = new Handler(){
+		
+		@Override
+		public void handleMessage(Message msg) {
+			if(mPollingEnabled)
+			switch(msg.what){
+			case 1:{
+				
+				ApproveListFragment.getVotingChores(onVotingList);
+				break;
+			}
+			case 2:{
+				//check after 3 secs
+				handlerRefreshBadge.sendEmptyMessageDelayed(1, 2000);
+				break;
+			}
+			}
+		}
+		
+	};
 	
+	IOnFinish<List> onVotingList = new IOnFinish<List>() {
+
+		@Override
+		public void onFinish(List t) {
+			if(t!=null){
+				updateBadge(t.size());
+			}else
+				updateBadge(0);
+			//send delay message;
+			handlerRefreshBadge.sendEmptyMessage(2);
+			
+		}
+		
+	};
+	public void enablePolling(boolean enabled){
+		if(!mPollingEnabled && enabled){
+			mPollingEnabled = enabled;
+			handlerRefreshBadge.sendEmptyMessage(1);
+		}
+		else
+			mPollingEnabled = enabled;
+		
+		
+	}
+	private void updateBadge(final int size){
+		if(mBadge!=null)
+			mBadge.post(new Runnable() {
+				
+				@Override
+				public void run() {
+					mBadge.setText(String.valueOf(size));
+				}
+			});
+	}
 	@Override
 	protected void onCreate(Bundle savedInstanceState) {
 		super.onCreate(savedInstanceState);
@@ -76,10 +139,22 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 		//test chores REST API
 		
 		
-		
+		//start polling
+		enablePolling(true);
 		super.onResume();
 	}
-
+	
+	@Override
+	protected void onPause() {
+		//start polling
+		enablePolling(false);
+		super.onPause();
+	}
+	@Override
+	protected void onStop() {
+		// TODO Auto-generated method stub
+		super.onStop();
+	}
 	public void toSnapshotFragment(){
 		addFragment(getSupportFragmentManager().beginTransaction(), new SnapShotFragment());
 	}
@@ -118,7 +193,9 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 				goToTab(2);
 			}
 		});
-		
+		mBadge = (TextView)menu.findItem(R.id.action_view_pending)
+		.getActionView()
+		.findViewById(R.id.actionbar_notifcation_textview);
 		return true;
 	}
 	
@@ -169,12 +246,12 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 					break;
 				}
 				case 1:{
-					baseListFr =  new RewardListFragment();
+					baseListFr =  new BaseListFragment();
 					baseListFr.registerOnListItemClick(onRewardClick);
 					break;
 				}
 				case 2:{
-					baseListFr =  new ChoreListFragment();
+					baseListFr =  new ApproveListFragment();
 					baseListFr.registerOnListItemClick(onChoreClick);
 					break;
 				}

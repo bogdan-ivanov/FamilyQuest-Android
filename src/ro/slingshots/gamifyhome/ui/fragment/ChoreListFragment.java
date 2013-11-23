@@ -45,19 +45,9 @@ public class ChoreListFragment extends BaseListFragment {
 	@Override
 	public void initAdapter() {
 		mAdapter = new ChoreAdapter(getActivity().getLayoutInflater());
-//		//test
-//		ArrayList<Object> testList = new ArrayList<Object>();
-//		for(int i=0;i<1000;i++){
-//			Chore c = new Chore();
-//			c.text = " desc "+i;
-//			c.time = "time";
-//			c.xp_reward =100;
-//			testList.add(c);
-//		}
-		
+
 		
 		mList.setAdapter(mAdapter);
-	//	setObjectList(testList);
 	}
 	
 	

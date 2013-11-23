@@ -6,4 +6,8 @@
     <string name="action_chore_add">Add chore</string>
     <string name="hello_world">Hello world!</string>
 	<string name="title_home">Our Chores</string>
+	
+	<string name="title_xp">Available XP: %d </string>
+	
+	<string name="title_add_chore">Add a new chore</string>
 </resources>

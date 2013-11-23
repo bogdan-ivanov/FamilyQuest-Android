@@ -16,4 +16,8 @@ public class ListItemViewHolder {
 		xp.setText("XP: "+c.xp_reward);
 		
 	}
+	public void mapReward(View v,Chore c){
+		description.setText(c.text);
+		//TODO add pic loading here..
+	}
 }

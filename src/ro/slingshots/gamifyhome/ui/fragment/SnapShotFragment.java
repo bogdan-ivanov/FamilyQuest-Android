@@ -41,8 +41,6 @@ public class SnapShotFragment extends BaseFragment{
 	private SurfaceView mPreview = null;
 	private Button cancelButton;
 	private Button mSnapshotButton;
-	
-	
 	private SurfaceHolder previewHolder = null;
 	private Camera mCamera = null;
 	private boolean inPreview = false;

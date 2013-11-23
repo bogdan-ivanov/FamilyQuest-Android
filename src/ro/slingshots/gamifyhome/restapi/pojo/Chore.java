@@ -7,5 +7,7 @@ public class Chore {
 	public String text;
 	public String time;
 	public Integer xp_reward;
-	
+	//
+	public String pic_url;
+	public Boolean voting;
 }

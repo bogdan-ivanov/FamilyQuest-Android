@@ -1,0 +1,21 @@
+<?xml version="1.0" encoding="utf-8"?>
+<selector xmlns:android="http://schemas.android.com/apk/res/android">
+
+    <item android:state_enabled="true" android:state_pressed="false">
+        <!-- <bitmap android:src="@drawable/ic_controls_shot" /> -->
+        <nine-patch android:src="@drawable/background_white_shadow_strech" />
+    </item>
+    <item android:state_enabled="true" android:state_pressed="true">
+        <!-- <bitmap android:src="@drawable/ic_controls_shot_a" /> -->
+        <nine-patch android:src="@drawable/background_gray_shadow_strech" />
+    </item>
+    <item android:state_enabled="false" android:state_pressed="false">
+        <!-- <bitmap android:src="@drawable/ic_controls_shot_d" /> -->
+        <nine-patch android:src="@drawable/background_gray_shadow_strech" />
+    </item>
+    <item android:state_enabled="false" android:state_pressed="true">
+        <!-- <bitmap android:src="@drawable/ic_controls_shot_d" /> -->
+        <nine-patch android:src="@drawable/background_gray_shadow_strech" />
+    </item>
+
+</selector> 

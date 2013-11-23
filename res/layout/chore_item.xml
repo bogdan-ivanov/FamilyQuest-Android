@@ -1,0 +1,55 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/container_parent"
+    android:layout_width="fill_parent"
+    android:layout_height="fill_parent" >
+
+    <RelativeLayout
+        android:id="@+id/container"
+        android:layout_width="fill_parent"
+        android:layout_height="fill_parent"
+        android:layout_centerInParent="true"
+        android:layout_marginBottom="@dimen/padding_normall"
+        android:layout_marginLeft="@dimen/padding_normall"
+        android:layout_marginRight="@dimen/padding_normall"
+        android:layout_marginTop="@dimen/padding_normall"
+        android:background="@drawable/selector_background_white_shadow"
+        android:padding="@dimen/padding_normall" >
+       
+        	<TextView 
+        	    android:id="@+id/description"
+        	    android:layout_width="fill_parent"
+        	    android:layout_height="wrap_content"
+        	    android:textSize="24sp"
+        	    android:text="Wash the Dishes"
+        	  	android:layout_alignParentTop="true"
+        	    />
+   
+    <TextView
+        	
+            android:id="@+id/xp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentLeft="true"
+            android:layout_alignParentBottom="true"
+            android:layout_below="@+id/description"
+            android:layout_margin="@dimen/padding_small"
+            android:text="XP:100"
+            android:textColor="@color/black"
+            android:textSize="@dimen/text_size_field_name"
+            android:textStyle="italic"
+            android:maxLines="1"
+            android:ellipsize="marquee"
+             />
+     <TextView
+            android:id="@+id/date"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignParentBottom="true"
+            android:layout_alignParentRight="true"
+            android:layout_margin="@dimen/padding_small"
+            android:text="today"
+            android:textColor="@color/gray"
+            android:textSize="@dimen/text_size_field_name_small" />
+     </RelativeLayout>
+    </RelativeLayout>

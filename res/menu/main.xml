@@ -1,0 +1,19 @@
+<menu xmlns:android="http://schemas.android.com/apk/res/android" >
+
+    <item
+        android:id="@+id/action_add_chore"
+        android:orderInCategory="100"
+        android:showAsAction="always"
+        android:title="@string/action_settings"
+        android:icon="@drawable/icon_plus"
+        />
+
+	<item
+	     android:title="@string/action_settings"
+        android:id="@+id/action_view_pending"
+		android:actionLayout="@layout/badge"
+        android:showAsAction="always"
+        
+        >
+    </item>
+</menu>

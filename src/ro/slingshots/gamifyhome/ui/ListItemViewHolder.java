@@ -1,6 +1,5 @@
 package ro.slingshots.gamifyhome.ui;
 
-import ro.slingshots.gamifyhome.R;
 import ro.slingshots.gamifyhome.restapi.pojo.Chore;
 import android.view.View;
 import android.widget.TextView;

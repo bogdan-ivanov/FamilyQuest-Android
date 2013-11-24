@@ -26,6 +26,7 @@ private static final String TAG = "RestClient";
 	public static final String URL_BASE = "http://192.168.1.3:8080";
 	public static final String PATH_OPEN_CHORES = "/api/v1/family/1/?format=json";
 	public static final String PATH_CLOSE_CHORE = "/photo_upload/";
+	public static final String PATH_LOGIN = "/request_api_key/";
 	private HttpApi mHttpApi;
 	private static RestClient mInstance;
 	private RestClient(){
@@ -51,6 +52,12 @@ private static final String TAG = "RestClient";
 		HttpPost post = new HttpPost(url);
 		
         return execute(post,imagePath,json);
+	}
+	public String login(String json) throws HttpApiException, IOException{
+		String url = getUrl(PATH_LOGIN);
+		HttpPost post = new HttpPost(url);
+		
+		return execute(post,json);
 	}
 	public String execute(String url) throws HttpApiException, IOException{
 		Log.i(TAG,"GET "+url);

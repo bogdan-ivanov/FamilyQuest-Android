@@ -6,4 +6,6 @@ public class RewardListFragment extends BaseListFragment {
 	public RewardListFragment(){
 		super(R.layout.reward_list);
 	}
+	
+	
 }

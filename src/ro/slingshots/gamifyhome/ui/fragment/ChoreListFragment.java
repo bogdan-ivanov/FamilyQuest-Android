@@ -16,6 +16,7 @@ import ro.slingshots.gamifyhome.http.request.AsyncCallback;
 import ro.slingshots.gamifyhome.http.request.AsyncRequest;
 import ro.slingshots.gamifyhome.http.request.RequestOpenChores;
 import ro.slingshots.gamifyhome.http.response.ResponseOpenChores;
+import ro.slingshots.gamifyhome.pref.PrefValues;
 import ro.slingshots.gamifyhome.restapi.pojo.Chore;
 import ro.slingshots.gamifyhome.ui.IOnFinish;
 import ro.slingshots.gamifyhome.ui.ListItemViewHolder;
@@ -61,6 +62,9 @@ public class ChoreListFragment extends BaseListFragment {
 				ResponseOpenChores resp = ResponseOpenChores.fromString(response);
 				//Log.i(TAG,"first "+resp.available_chores.get(0).text);
 				setObjectList(resp.available_chores);
+				
+				//save family members
+				PrefValues.saveAllowedMembers(ChoreListFragment.this.getActivity(), resp.members);
 			}
 		}).execute(new RequestOpenChores());
 		super.onResume();

@@ -329,7 +329,12 @@ public class SnapShotFragment extends BaseFragment{
 			
 			@Override
 			public void onFinish(String response, Exception e) {
-				Log.i(TAG,"onFinish upload "+response);
+				if(e==null){
+					Log.i(TAG,"onFinish upload "+response);
+					
+				}else{
+					Toast.makeText(SnapShotFragment.this.getActivity(), "error uploading "+e.getMessage(), Toast.LENGTH_SHORT).show();
+				}
 			}
 			//TODO fix null json input -> add id etc !!!!!
 		}).execute(new RequestCloseChore(pictureFile.getAbsolutePath(), null));

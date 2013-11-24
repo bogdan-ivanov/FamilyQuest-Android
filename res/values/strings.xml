@@ -10,4 +10,6 @@
 	<string name="title_xp">Available XP: %d </string>
 	
 	<string name="title_add_chore">Add a new chore</string>
+	<string name="title_text_xp_reward">Reward with:</string>
+	<string name="text_xp_value">%d XP</string>
 </resources>

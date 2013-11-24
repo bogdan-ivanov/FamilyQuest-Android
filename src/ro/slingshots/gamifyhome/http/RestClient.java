@@ -26,7 +26,12 @@ private static final String TAG = "RestClient";
 	public static final String URL_BASE = "http://192.168.1.3:8080";
 	public static final String PATH_OPEN_CHORES = "/api/v1/family/1/?format=json";
 	public static final String PATH_CLOSE_CHORE = "/photo_upload/";
+
 	public static final String PATH_LOGIN = "/request_api_key/";
+
+	public static final String PATH_ADD_CHORE = "/api/v1/chore/";
+	public static final String PATH_MEMBER = "/api/v1/family_member/";
+
 	private HttpApi mHttpApi;
 	private static RestClient mInstance;
 	private RestClient(){
@@ -47,8 +52,18 @@ private static final String TAG = "RestClient";
 		
 		return encodedImage;
 	}
+	public String submitChore(String json)throws HttpApiException, IOException{
+		
+		String url = getUrl(PATH_ADD_CHORE);
+		Log.i(TAG,"submitChore "+url);
+		HttpPost post = new HttpPost(url);
+		
+		return execute(post,json);
+	}
 	public String uploadClosedChore(String imagePath,String json) throws HttpApiException, IOException{
+		
 		String url = getUrl(PATH_CLOSE_CHORE);
+		Log.i(TAG,"uploadClosedChore "+url);
 		HttpPost post = new HttpPost(url);
 		
         return execute(post,imagePath,json);
@@ -94,5 +109,9 @@ private static final String TAG = "RestClient";
 			mInstance = new RestClient();
 		
 		return mInstance;
+	}
+	
+	public static String getInitiator(int id){
+		return PATH_MEMBER+id+"/";
 	}
 }

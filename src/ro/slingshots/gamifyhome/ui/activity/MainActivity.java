@@ -13,6 +13,7 @@ import ro.slingshots.gamifyhome.http.request.AsyncRequest;
 import ro.slingshots.gamifyhome.http.request.RequestOpenChores;
 import ro.slingshots.gamifyhome.http.response.ResponseOpenChores;
 import ro.slingshots.gamifyhome.ui.IOnFinish;
+import ro.slingshots.gamifyhome.ui.fragment.AddChoreFragment;
 import ro.slingshots.gamifyhome.ui.fragment.BaseListFragment;
 import ro.slingshots.gamifyhome.ui.fragment.ChoreListFragment;
 import ro.slingshots.gamifyhome.ui.fragment.ApproveListFragment;
@@ -43,6 +44,7 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 	Fragment mActiveFragment;
 	TextView mBadge;
 	boolean mPollingEnabled = false;
+	
 	IOnFinish<Integer> onChoreClick = new IOnFinish<Integer>() {
 
 		@Override
@@ -246,9 +248,8 @@ public class MainActivity extends FragmentActivity implements ViewPager.OnPageCh
 					break;
 				}
 				case 1:{
-					baseListFr =  new BaseListFragment();
-					baseListFr.registerOnListItemClick(onRewardClick);
-					break;
+					return   new AddChoreFragment();
+					
 				}
 				case 2:{
 					baseListFr =  new ApproveListFragment();

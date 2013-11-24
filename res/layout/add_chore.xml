@@ -3,7 +3,9 @@
     android:id="@+id/container_parent"
     android:layout_width="fill_parent"
     android:layout_height="fill_parent"
-    android:background="@color/gray"
+    android:background="@drawable/background_white_shadow_strech"
+    android:layout_margin="@dimen/padding_xlarge"
+    
      >
     <TextView 
         android:id="@+id/title"
@@ -13,11 +15,52 @@
         android:text="@string/title_add_chore"
         android:layout_margin="@dimen/padding_large"
         />
-    <Spinner
-    	android:id="@+id/spinner_rewards"
-    	android:layout_width="fill_parent"
-    	android:layout_height="wrap_content" 
-    	
-    />
-    	
+  	<EditText
+  	    android:id="@+id/edit_description"
+  	    android:layout_width="fill_parent"
+  	    android:layout_height="wrap_content"
+  	    android:minLines="3"
+  	    android:hint="Enter Description"
+  	    android:layout_marginRight="@dimen/padding_xlarge"
+  	    android:layout_marginLeft="@dimen/padding_xlarge"
+  	    android:background="@drawable/edit_text_holo_light"
+  	    android:layout_below="@+id/title"
+  	    ></EditText>
+  	 <TextView
+  	      	android:id="@+id/text_xp_description"
+        	android:layout_width="wrap_content"
+        	android:layout_height="wrap_content"
+        	android:textSize="20sp"
+       	 	android:text="@string/title_text_xp_reward"
+        	android:layout_margin="@dimen/padding_xlarge"
+        	android:layout_below="@+id/edit_description">
+  	     
+  	 </TextView>   
+  	 <TextView
+  	      	android:id="@+id/text_xp_value"
+        	android:layout_width="fill_parent"
+        	android:layout_height="wrap_content"
+        	android:textSize="20sp"
+        	android:layout_margin="@dimen/padding_xlarge"
+        	android:layout_below="@+id/edit_description"
+        	android:layout_toRightOf="@+id/text_xp_description"
+        	android:text="@string/text_xp_value">
+  	     
+  	 </TextView>   
+  	 <SeekBar
+  	     android:id="@+id/seek_xp"
+  	     android:layout_width="fill_parent"
+  	     android:layout_height="wrap_content"
+  	     android:layout_below="@+id/text_xp_description"
+  	     android:layout_margin="@dimen/padding_xlarge"
+  	     ></SeekBar>   
+    	<Button 
+    	    android:id="@+id/button_submit"
+    	    android:layout_width="wrap_content"
+    	    android:layout_height="wrap_content"
+    	    android:text="Submit"
+    	    android:layout_alignParentBottom="true"
+    	    android:layout_centerHorizontal="true"
+    	    android:layout_marginBottom="@dimen/padding_xlarge"
+    	    />
 </RelativeLayout>
